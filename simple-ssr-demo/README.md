@@ -169,7 +169,7 @@ console.log('Server listening on http://localhost:3000.')
 ```
 
 运行 `nom run server` 就可以看到服务器渲染出来的页面了。
-![](README/README/92BB248F-5ED9-441E-AF7D-C62C22CFA429.png)
+![](http://oav778tsj.bkt.clouddn.com/ssr2/92BB248F-5ED9-441E-AF7D-C62C22CFA429.png)
 
 ## 增加前端方法
 这只是一个简单的静态页面，没有 js 方法动态创建一些内容，我们再添加一些前端方法，看看渲染出来的页面中客户端 js 的运行是不是可以的。
@@ -202,14 +202,14 @@ export default {
 ```
 
 然后再次构建整个工程，重新启动服务器。
-![](README/README/74430951-85CB-4B44-BC5F-9876DDD7C742.png)
+![](http://oav778tsj.bkt.clouddn.com/ssr2/74430951-85CB-4B44-BC5F-9876DDD7C742.png)
 Success！
 
 ## 简单的数据注入
 比如渲染一个新闻页面，希望网页的标题是页面直接渲染出来的？应该怎么做？Vue.js SSR 提供了方法，能够插入模板变量。只要在 index.template.html 中加入模板变量就可以像其他的后端模板一样插入数据。首先修改一下 index.template.html 中，增加 `title` 变量，`<title>SSR demo - {{ title }}</title>` 。
 然后在 server.js 中的 `renderToString`方法中的第一个参数传入 `{ title: '第一个 SSR Demo'}`。
 最后再重启一下后台服务，如下图，我们的页面标题变成了我们定义的了。
-![](README/README/24FABAD4-2908-4138-A8EF-7AA7EDE5AD27.png)
+![](http://oav778tsj.bkt.clouddn.com/ssr2/24FABAD4-2908-4138-A8EF-7AA7EDE5AD27.png)
 
 如果还想更复杂的数据我们只能用注入一个 window 全局变量了。这个时候我们还没办法用组件的静态方法，通过后台服务去注入，因为我们没有用到router，不知道app中的组件是不是已经实例化，没办法去获取组件里的静态方法。借鉴 SSR 官方中的 `window.__INIT_STATE` 的方式，先在 index.template.html 中 增加一个 script 标签加入模板变量，然后在 server.js 中传入数据，最后修改 App.vue 文件在 `mounted` 中判断获取这个变量，将变量赋值给组件的 `data` 属性中，具体的代码如下：
 ```html
@@ -277,7 +277,7 @@ export default {
 ```
 
 重新编译，重启服务后，页面上就会多一段文字了，如下图所示：
-![](README/README/9268B847-25CC-4B87-ACCD-8326FA71A039.png)
+![](http://oav778tsj.bkt.clouddn.com/ssr2/9268B847-25CC-4B87-ACCD-8326FA71A039.png)
 
 Success！
 所有的代码都在这个上面
